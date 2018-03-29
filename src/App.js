@@ -86,39 +86,54 @@ class App extends Component {
   		this.setState({
   			...newState
   		}, function () {
-  		  // If the two cards don't match
+  		  // If the two cards don't match...
   			if (newState.cardsRevealed[0].color !== newState.cardsRevealed[1].color) {
-  			  
-  			 // Set revealed to false for those cars
-  				for (let i = 0; i < 2; i++) {
-  					const index = newState.cards.findIndex(card => card.id == newState.cardsRevealed[i].id);
-  					newState.cards[index].revealed = false;
-  				}
+  			 // Map array where the unmatching cards are reset to revealed:false by pulling from cardsRevealed array
+  			  const cardsRevert = newState.cards.map(card => {
+  			    if(card.id === newState.cardsRevealed[0].id){
+  			      newState.cardsRevealed[0].revealed = false;
+  			      return newState.cardsRevealed[0];
+  			    } else if (card.id === newState.cardsRevealed[1].id) {
+  			      newState.cardsRevealed[1].revealed = false;
+  			      return newState.cardsRevealed[1];
+  			    } else {
+  			      return card;
+  			    }
+  			   });
+
           // After 1.5 seconds setState to prepare for next picks
   				setTimeout(() => {
-  					const cardsRevealed = [];
-  					const numCardsRevealed = 0;
   					this.setState({
-  						cards:newState.cards,
-  						numCardsRevealed,
-  						cardsRevealed
+  						cards:cardsRevert,
+  						numCardsRevealed:0,
+  						cardsRevealed:[]
   					});
   				}, 1500);
-
-  			} else {
-  			 // If they match, set solved to true for those two cards
-  			 let cardsRevealed = this.state.cardsRevealed.slice();
-  			  for (let i = 0; i < 2; i++) {
-  					const index = newState.cards.findIndex(card => card.id == cardsRevealed[i].id);
-  					newState.cards[index].solved = true;
-  				}
+  			}
+  			else {
+  			  const updateSolvedCards = newState.cards.map(card => {
+  			    if(card.id === newState.cardsRevealed[0].id){
+  			      newState.cardsRevealed[0].solved = true;
+  			      return newState.cardsRevealed[0];
+  			    } else if (card.id === newState.cardsRevealed[1].id) {
+  			      newState.cardsRevealed[1].solved = true;
+  			      return newState.cardsRevealed[1];
+  			    } else {
+  			      return card;
+  			    }
+  			  });
+  			  
+  			 //// If they do match, set solved to true for those two cards
+  			 //let cardsRevealed = this.state.cardsRevealed.slice();
+  			 // for (let i = 0; i < 2; i++) {
+  				// 	const index = newState.cards.findIndex(card => card.id == cardsRevealed[i].id);
+  				// 	newState.cards[index].solved = true;
+  				// }
   				// And reset everything else to prepare for next picks
-  				cardsRevealed = [];
-  				const numCardsRevealed = 0;
   				this.setState({
-  					cards:newState.cards,
-  					numCardsRevealed,
-  					cardsRevealed
+  					cards:updateSolvedCards,
+  					numCardsRevealed:0,
+  					cardsRevealed:[]
   				}, this.checkGameEnd(this.state.cards) /* And check whether the game is over after setting state */
   				);
   			} 
