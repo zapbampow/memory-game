@@ -123,12 +123,6 @@ class App extends Component {
   			    }
   			  });
   			  
-  			 //// If they do match, set solved to true for those two cards
-  			 //let cardsRevealed = this.state.cardsRevealed.slice();
-  			 // for (let i = 0; i < 2; i++) {
-  				// 	const index = newState.cards.findIndex(card => card.id == cardsRevealed[i].id);
-  				// 	newState.cards[index].solved = true;
-  				// }
   				// And reset everything else to prepare for next picks
   				this.setState({
   					cards:updateSolvedCards,
@@ -171,10 +165,12 @@ class App extends Component {
         {id:15, revealed:false, solved:false, color:"green"},
       ];
     this.Shuffle(cards);
-    const cardsRevealed = [];
-    const numCardsRevealed = 0;
-    const gameComplete = false; 
-    this.setState({cards, cardsRevealed, numCardsRevealed, gameComplete}, ()=> console.log(this.state) );
+
+    this.setState({
+      cards, 
+      cardsRevealed:[], 
+      numCardsRevealed:0, gameComplete:false
+    });
   }
 
   
