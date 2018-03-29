@@ -1,0 +1,19 @@
+.Navbar {
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    padding: .3rem 1rem;
+    background-color: #0e1f3a;
+    color:white;
+    align-items:center;
+}
+
+.navbar-title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+.navbar-new-game:hover {
+    cursor: pointer;
+}
