@@ -4,27 +4,29 @@ import Navbar from './Navbar';
 import Cards from './Cards';
 import GameOver from './GameOver';
 
+const cards= [
+    {id:0, revealed:false, solved:false, color:"red"},
+    {id:1, revealed:false, solved:false, color:"red"},
+    {id:2, revealed:false, solved:false, color:"blue"},
+    {id:3, revealed:false, solved:false, color:"blue"},
+    {id:4, revealed:false, solved:false, color:"black"},
+    {id:5, revealed:false, solved:false, color:"black"},
+    {id:6, revealed:false, solved:false, color:"orange"},
+    {id:7, revealed:false, solved:false, color:"orange"},
+    {id:8, revealed:false, solved:false, color:"pink"},
+    {id:9, revealed:false, solved:false, color:"pink"},
+    {id:10, revealed:false, solved:false, color:"yellow"},
+    {id:11, revealed:false, solved:false, color:"yellow"},
+    {id:12, revealed:false, solved:false, color:"purple"},
+    {id:13, revealed:false, solved:false, color:"purple"},
+    {id:14, revealed:false, solved:false, color:"green"},
+    {id:15, revealed:false, solved:false, color:"green"},
+  ];
+      
 class App extends Component {
   constructor(props){
     super(props);
-    const cards= [
-        {id:0, revealed:false, solved:false, color:"red"},
-        {id:1, revealed:false, solved:false, color:"red"},
-        {id:2, revealed:false, solved:false, color:"blue"},
-        {id:3, revealed:false, solved:false, color:"blue"},
-        {id:4, revealed:false, solved:false, color:"black"},
-        {id:5, revealed:false, solved:false, color:"black"},
-        {id:6, revealed:false, solved:false, color:"orange"},
-        {id:7, revealed:false, solved:false, color:"orange"},
-        {id:8, revealed:false, solved:false, color:"pink"},
-        {id:9, revealed:false, solved:false, color:"pink"},
-        {id:10, revealed:false, solved:false, color:"yellow"},
-        {id:11, revealed:false, solved:false, color:"yellow"},
-        {id:12, revealed:false, solved:false, color:"purple"},
-        {id:13, revealed:false, solved:false, color:"purple"},
-        {id:14, revealed:false, solved:false, color:"green"},
-        {id:15, revealed:false, solved:false, color:"green"},
-      ];
+
     const shuffledCards = this.Shuffle(cards.slice());
     
     this.state = {
@@ -146,28 +148,10 @@ class App extends Component {
  
   
   newGame () {
-    const cards= [
-        {id:0, revealed:false, solved:false, color:"red"},
-        {id:1, revealed:false, solved:false, color:"red"},
-        {id:2, revealed:false, solved:false, color:"blue"},
-        {id:3, revealed:false, solved:false, color:"blue"},
-        {id:4, revealed:false, solved:false, color:"black"},
-        {id:5, revealed:false, solved:false, color:"black"},
-        {id:6, revealed:false, solved:false, color:"orange"},
-        {id:7, revealed:false, solved:false, color:"orange"},
-        {id:8, revealed:false, solved:false, color:"pink"},
-        {id:9, revealed:false, solved:false, color:"pink"},
-        {id:10, revealed:false, solved:false, color:"yellow"},
-        {id:11, revealed:false, solved:false, color:"yellow"},
-        {id:12, revealed:false, solved:false, color:"purple"},
-        {id:13, revealed:false, solved:false, color:"purple"},
-        {id:14, revealed:false, solved:false, color:"green"},
-        {id:15, revealed:false, solved:false, color:"green"},
-      ];
-    this.Shuffle(cards);
+    const shuffledCards = this.Shuffle(cards);
 
     this.setState({
-      cards, 
+      cards:shuffledCards, 
       cardsRevealed:[], 
       numCardsRevealed:0, gameComplete:false
     });
