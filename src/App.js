@@ -49,64 +49,57 @@ class App extends Component {
   }
   
   handleClick(e) {
-  	// Find the card in state
-  	const id = e.target.id.split('-')[1];
-  	const index = this.state.cards.findIndex(card => card.id == id);
-  	const cards = this.state.cards.slice();
-
-  	// handle the rest of the stuff
-  	if (this.state.numCardsRevealed === 0) {
+    	
+    // Find the card in state
+    const id = e.target.id.split('-')[1];
+    // const cards = this.state.cards.slice();
+    const newState = Object.assign(this.state);
+    const index = newState.cards.findIndex(card => card.id == id);
+  
+    // handle the rest of the stuff
+    if (newState.numCardsRevealed === 0) {
+      // Prep card.revealed=true
+      newState.cards[index].revealed = true;
+  
+      // Prep numCardsRevealed + 1
+      newState.numCardsRevealed += 1;
+  
+      // Prep cardsRevealed.push
+      newState.cardsRevealed.push(newState.cards[index]);
+  
+      // setState
+      this.setState({
+        ...newState
+      });
+  
+    } else if (newState.numCardsRevealed === 1) {
   		// Prep card.revealed=true
-
-  		cards[index].revealed = true;
+  		newState.cards[index].revealed = true;
 
   		// Prep numCardsRevealed + 1
-  		let numCardsRevealed = Object.assign(this.state.numCardsRevealed);
-  		numCardsRevealed += 1;
+  		newState.numCardsRevealed += 1;
 
   		// Prep cardsRevealed.push
-  		const cardsRevealed = this.state.cardsRevealed.slice();
-  		cardsRevealed.push(cards[index]);
+  		newState.cardsRevealed.push(newState.cards[index]);
 
   		// setState
   		this.setState({
-  			cards,
-  			numCardsRevealed,
-  			cardsRevealed
-  		});
-
-  	} else if (this.state.numCardsRevealed === 1) {
-  		// Prep card.revealed=true
-  		const cards = this.state.cards.slice();
-  		cards[index].revealed = true;
-
-  		// Prep numCardsRevealed + 1
-  		let numCardsRevealed = Object.assign(this.state.numCardsRevealed);
-  		numCardsRevealed += 1;
-
-  		// Prep cardsRevealed.push
-  		const cardsRevealed = this.state.cardsRevealed.slice();
-  		cardsRevealed.push(cards[index]);
-
-  		// setState
-  		this.setState({
-  			cards,
-  			numCardsRevealed,
-  			cardsRevealed
+  			...newState
   		}, function () {
   		  // If the two cards don't match
-  			if (cardsRevealed[0].color !== cardsRevealed[1].color) {
+  			if (newState.cardsRevealed[0].color !== newState.cardsRevealed[1].color) {
+  			  
   			 // Set revealed to false for those cars
   				for (let i = 0; i < 2; i++) {
-  					const index = cards.findIndex(card => card.id == cardsRevealed[i].id);
-  					cards[index].revealed = false;
+  					const index = newState.cards.findIndex(card => card.id == newState.cardsRevealed[i].id);
+  					newState.cards[index].revealed = false;
   				}
           // After 1.5 seconds setState to prepare for next picks
   				setTimeout(() => {
   					const cardsRevealed = [];
   					const numCardsRevealed = 0;
   					this.setState({
-  						cards,
+  						cards:newState.cards,
   						numCardsRevealed,
   						cardsRevealed
   					});
@@ -116,14 +109,14 @@ class App extends Component {
   			 // If they match, set solved to true for those two cards
   			 let cardsRevealed = this.state.cardsRevealed.slice();
   			  for (let i = 0; i < 2; i++) {
-  					const index = cards.findIndex(card => card.id == cardsRevealed[i].id);
-  					cards[index].solved = true;
+  					const index = newState.cards.findIndex(card => card.id == cardsRevealed[i].id);
+  					newState.cards[index].solved = true;
   				}
   				// And reset everything else to prepare for next picks
   				cardsRevealed = [];
   				const numCardsRevealed = 0;
   				this.setState({
-  					cards,
+  					cards:newState.cards,
   					numCardsRevealed,
   					cardsRevealed
   				}, this.checkGameEnd(this.state.cards) /* And check whether the game is over after setting state */
