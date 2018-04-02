@@ -1,3 +1,37 @@
 .GameOver {
-    text-align: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    justify-content:center;
+    align-items:center;
+}
+
+.GameOver h1 {
+    font-size: 3rem;
+    color:white;
+}
+
+.gameover-new-game {
+    background-color: white;
+    color:black;
+    border-width:0px;
+    font-size: 2rem;
+    padding: 1rem 1rem;
+    border-radius: 5px;
+}
+
+.gameover-new-game:hover {
+    background-color: #e6e6e6;
+}
+
+.gameover-new-game:active {
+    transform:translate(1px, 1px);
 }

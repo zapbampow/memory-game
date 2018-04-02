@@ -148,14 +148,19 @@ class App extends Component {
   
   newGame () {
     const shuffledCards = this.Shuffle(cards);
-    shuffledCards.forEach(card => card.revealed = false);
+    shuffledCards.forEach(card => {
+      card.solved = false;
+      card.revealed = false;
+    });
 
     this.setState({
       cards:shuffledCards, 
       cardsRevealed:[], 
       numCardsRevealed:0, 
       gameComplete:false
-    });
+    }, ()=>console.log(this.state));
+    
+    
   }
 
   
@@ -165,7 +170,7 @@ class App extends Component {
       return (
       <div className="App">
         <Navbar newGame={this.newGame}/>
-        <GameOver  />
+        <GameOver newGame={this.newGame} />
         <Cards cards={this.state.cards} handleClick={this.handleClick} />
       </div>
     );
