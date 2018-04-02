@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+.example-enter {
+  opacity:0;
+}
+      
+.example-enter-active {
+  opacity:1;
+  transition: opacity 2s ease-out;
+}
 /*.App {*/
 /*  text-align: center;*/
 /*}*/

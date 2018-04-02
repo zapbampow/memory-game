@@ -54,7 +54,6 @@ class App extends Component {
     	
     // Find the card in state
     const id = e.target.id.split('-')[1];
-    // const cards = this.state.cards.slice();
     const newState = Object.assign(this.state);
     const index = newState.cards.findIndex(card => card.id == id);
   
@@ -149,11 +148,13 @@ class App extends Component {
   
   newGame () {
     const shuffledCards = this.Shuffle(cards);
+    shuffledCards.forEach(card => card.revealed = false);
 
     this.setState({
       cards:shuffledCards, 
       cardsRevealed:[], 
-      numCardsRevealed:0, gameComplete:false
+      numCardsRevealed:0, 
+      gameComplete:false
     });
   }
 
@@ -164,7 +165,7 @@ class App extends Component {
       return (
       <div className="App">
         <Navbar newGame={this.newGame}/>
-        <GameOver />
+        <GameOver  />
         <Cards cards={this.state.cards} handleClick={this.handleClick} />
       </div>
     );
